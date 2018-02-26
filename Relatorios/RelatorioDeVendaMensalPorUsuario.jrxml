@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDeVendaMensalPorUsuario" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="0f8dda09-d60d-4207-996d-9565e8d9bb91">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["X:\\NSys\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<parameter name="nomeEmpresa" class="java.lang.String"/>
+	<parameter name="cnpjEmpresa" class="java.lang.String"/>
+	<parameter name="cidadeEmpresa" class="java.lang.String"/>
+	<parameter name="enderecoEmpresa" class="java.lang.String"/>
+	<parameter name="cepEmpresa" class="java.lang.String"/>
+	<parameter name="telefoneEmpresa" class="java.lang.String"/>
+	<parameter name="logotipoEmpresa" class="java.awt.Image"/>
+	<parameter name="intervaloSelecionado" class="java.lang.String"/>
+	<parameter name="valorDeMeta" class="java.lang.Double"/>
+	<parameter name="dataVendaInicial" class="java.lang.String"/>
+	<parameter name="dataVendaFinal" class="java.lang.String"/>
+	<parameter name="codigoUsuarioInicial" class="java.lang.String"/>
+	<parameter name="codigoUsuarioFinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    ven.idVenda,
+    ven.idEmpresa,
+    ven.codigoGrupo,
+    ven.codigoEmpresa,
+    ven.codigoUsuario,
+    usu.usuario,
+    usu.nome
+from
+    tb_vendas ven
+    inner join tb_usuarios usu on ((ven.idEmpresa = usu.idEmpresa) and (ven.codigoUsuario = usu.codigoUsuario))
+    inner join tb_vendas_itens veni on ((ven.idEmpresa = veni.idEmpresa) and (ven.codigoVenda = veni.codigoVenda))
+    where ven.idEmpresa = $P{idEmpresa} and status = 2 and
+        (ven.dataVenda between $P{dataVendaInicial} and $P{dataVendaFinal}) and
+        (ven.codigoUsuario between $P{codigoUsuarioInicial} and $P{codigoUsuarioFinal})
+        group by ven.codigoUsuario asc
+        order by ven.codigoUsuario asc;]]>
+	</queryString>
+	<field name="idVenda" class="java.lang.Integer"/>
+	<field name="idEmpresa" class="java.lang.Integer"/>
+	<field name="codigoGrupo" class="java.lang.Integer"/>
+	<field name="codigoEmpresa" class="java.lang.Integer"/>
+	<field name="codigoUsuario" class="java.lang.Integer"/>
+	<field name="usuario" class="java.lang.String"/>
+	<field name="nome" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="85" splitType="Stretch">
+			<textField>
+				<reportElement uuid="05de3fe7-e71c-4d54-bdaa-dd8a8550ff94" x="180" y="50" width="210" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cidadeEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="a2d48667-c37a-41ec-bffc-b1285c0e056a" x="140" y="65" width="250" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telefoneEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="1da089b2-d1e0-427d-867e-74533946929f" x="90" y="50" width="90" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cepEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0eb356b1-94d1-4f9b-85b3-ed305e34154f" x="90" y="35" width="300" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{enderecoEmpresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="8821f97f-a56d-45bb-89b8-75068100296f" x="90" y="65" width="50" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="5db4b8ae-d7dd-42b5-9940-0a7e0c349eae" x="90" y="20" width="300" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cnpjEmpresa}.substring(0, 2) + "." + $P{cnpjEmpresa}.substring(2, 5) + "." + $P{cnpjEmpresa}.substring(5, 8) + "/" + $P{cnpjEmpresa}.substring(8, 12) + "-" + $P{cnpjEmpresa}.substring(12, 14)]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="479c1ba0-457e-4f51-aaa8-c91ae365f5b7" x="1" y="1" width="78" height="78"/>
+				<imageExpression><![CDATA[$P{logotipoEmpresa}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="bce49264-f5bd-490c-9365-b9e68c0d61e8" x="90" y="1" width="300" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeEmpresa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<textField>
+				<reportElement uuid="d15f7f9c-d556-495f-9052-0c1d1df957ed" x="120" y="15" width="582" height="20"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{intervaloSelecionado}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="6b347187-7272-4a43-9b95-0ac6de579b40" x="0" y="20" width="75" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Usuário]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4e9cd11a-84e8-46e9-b610-3dcdb7328baa" x="75" y="20" width="290" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nome]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="119fce51-3be8-441b-8053-d4585d3874f1" x="365" y="20" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<staticText>
+				<reportElement uuid="3b9a8e49-af1c-4b96-8989-0739ebbf5387" x="365" y="20" width="80" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Qtd de Vendas]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="119fce51-3be8-441b-8053-d4585d3874f1" x="445" y="20" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<staticText>
+				<reportElement uuid="3948760b-3161-4805-a248-b2ba4993a9d5" x="445" y="20" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub-Total]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="119fce51-3be8-441b-8053-d4585d3874f1" x="530" y="20" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<staticText>
+				<reportElement uuid="d20197d4-2f94-4d72-9bbe-d49a84ef4852" x="530" y="20" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Desconto]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="119fce51-3be8-441b-8053-d4585d3874f1" x="615" y="20" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<staticText>
+				<reportElement uuid="7bd8dc7b-6859-4232-8dad-0d98bca4a0cc" x="615" y="20" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="119fce51-3be8-441b-8053-d4585d3874f1" x="700" y="20" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<staticText>
+				<reportElement uuid="25c429c0-908c-4ecf-b066-c0d4f504e70d" x="700" y="20" width="102" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="9accbf1d-524b-46ba-9713-cfb8f9bbb643" x="0" y="34" width="802" height="1" forecolor="#000000"/>
+			</line>
+			<line>
+				<reportElement uuid="a23f1f24-eaa7-4af4-9bbd-d50044cc41ce" x="645" y="0" width="157" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="630d31b1-91e0-4c26-89d8-00f9436f2566" x="645" y="0" width="1" height="15"/>
+			</line>
+			<staticText>
+				<reportElement uuid="518ffdc7-a869-43ab-89ac-ca50e6f5d013" x="645" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<text><![CDATA[Valor de Meta:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="c9b05ad2-43e4-4447-9e2f-e2cd424ff564" x="715" y="0" width="1" height="15"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="6e4826a3-ea7a-4f95-8353-7a248e4233e2" x="715" y="0" width="87" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{valorDeMeta}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="756a7d25-1bd7-4e79-9f35-a74bb990ec66" x="801" y="0" width="1" height="15"/>
+			</line>
+			<line>
+				<reportElement uuid="756a7d25-1bd7-4e79-9f35-a74bb990ec66" x="645" y="14" width="157" height="1"/>
+			</line>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<textField pattern="000">
+				<reportElement uuid="b94c4901-e218-43bc-af57-df89ee03b332" x="0" y="0" width="20" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoUsuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="e3452de8-344b-4e6e-b85c-bdd0b858fe12" x="20" y="0" width="55" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA["-" + $F{usuario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b51515ab-bd94-4f6b-ac67-ab8cfa1229e3" x="75" y="0" width="290" height="15"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{nome}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="9accbf1d-524b-46ba-9713-cfb8f9bbb643" x="365" y="0" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<line>
+				<reportElement uuid="9accbf1d-524b-46ba-9713-cfb8f9bbb643" x="445" y="0" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<subreport>
+				<reportElement uuid="2a181831-df41-4068-9587-19a183b8e077" x="445" y="0" width="356" height="15"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idEmpresa">
+					<subreportParameterExpression><![CDATA[$F{idEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataVendaInicial">
+					<subreportParameterExpression><![CDATA[$P{dataVendaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="valorDeMeta">
+					<subreportParameterExpression><![CDATA[$P{valorDeMeta}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataVendaFinal">
+					<subreportParameterExpression><![CDATA[$P{dataVendaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoUsuario">
+					<subreportParameterExpression><![CDATA[$F{codigoUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RelatorioDeVendaMensalPorUsuarioItens.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="9accbf1d-524b-46ba-9713-cfb8f9bbb643" x="801" y="0" width="1" height="15" forecolor="#DCDCDC"/>
+			</line>
+			<line>
+				<reportElement uuid="9accbf1d-524b-46ba-9713-cfb8f9bbb643" x="0" y="14" width="802" height="1" forecolor="#DCDCDC"/>
+			</line>
+			<subreport>
+				<reportElement uuid="a738829f-7120-4d8f-9ff9-17dab242dd66" x="365" y="0" width="80" height="15"/>
+				<subreportParameter name="idEmpresa">
+					<subreportParameterExpression><![CDATA[$F{idEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataVendaInicial">
+					<subreportParameterExpression><![CDATA[$P{dataVendaInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataVendaFinal">
+					<subreportParameterExpression><![CDATA[$P{dataVendaFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoUsuario">
+					<subreportParameterExpression><![CDATA[$F{codigoUsuario}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RelatorioDeVendaMensalPorUsuarioQtdVendas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDeFechamentoDeCaixaSubReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="88568390-1bf5-4b28-8fef-924472cf5af6">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="140"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<parameter name="codigoComputador" class="java.lang.String"/>
+	<parameter name="codigoAbertura" class="java.lang.String"/>
+	<parameter name="valorDoCaixa" class="java.lang.Double"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["X:\\NSys\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    fec.idFechamento,
+    fec.idEmpresa,
+    fec.codigoFechamento,
+    comp.codigoComputador,
+    comp.nomeComputador,
+    usu.codigoUsuario,
+    usu.usuario,
+    dep.codigoDepartamento,
+    dep.descricaoDepartamento,
+    fec.dataDoFechamento,
+    fec.horaDoFechamento,
+    fec.tipoFechamento,
+    sum(fecd.valorTotalDoFechamento) as valorTotalDoFechamento
+from
+    tb_caixa_fechamento fec
+    left join tb_caixa_fechamento_detalhes fecd on (fec.idFechamento = fecd.idFechamento)
+    inner join tb_computadores comp on ((fec.idEmpresa = comp.idEmpresa) and (fec.codigoComputador = comp.codigoComputador))
+    inner join tb_departamento dep  on ((fec.idEmpresa = dep.idEmpresa) and (comp.computadorDepartamento = dep.codigoDepartamento))
+    inner join tb_usuarios usu on ((fec.idEmpresa = usu.idEmpresa) and (fec.codigoUsuario = usu.codigoUsuario))
+        where fec.idEmpresa = $P{idEmpresa} and fec.codigoComputador = $P{codigoComputador} and fec.codigoAbertura = $P{codigoAbertura}
+            group by fec.idFechamento asc
+            order by fec.idFechamento asc;]]>
+	</queryString>
+	<field name="idFechamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idEmpresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoFechamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoComputador" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeComputador" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoUsuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoDepartamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoDepartamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataDoFechamento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horaDoFechamento" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoFechamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorTotalDoFechamento" class="java.lang.Double"/>
+	<variable name="SomaValorTotalDoFechamento" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotalDoFechamento}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="b5f90a04-9995-4338-a182-4b68f62ac2f8" x="0" y="0" width="75" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Finalizado por:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="b472c0b9-84d9-4127-9658-ee35c4b3c2a6" x="75" y="0" width="60" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{usuario}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a131cf07-c843-4a5e-92d7-2ff4c990505e" x="145" y="0" width="105" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data do Fechamento:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="a6924385-8768-4244-aafd-b711a329ac45" x="250" y="0" width="55" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{dataDoFechamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm.ss">
+				<reportElement uuid="8ccbc92e-062f-4ab3-841c-ab7b1bd36f85" x="305" y="0" width="40" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{horaDoFechamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d6e8341e-9131-4086-803e-d2decf7bb270" x="375" y="0" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de fechamento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="698883a0-db72-45af-8196-eb017a6caf35" x="475" y="0" width="90" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{tipoFechamento}.equals("X")? "Leitura X" : "Redução Z"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="b4f5fc9b-07c2-425b-8c4b-25e0e8fa36b4" x="0" y="15" width="555" height="1" forecolor="#E1E1E1"/>
+			</line>
+			<subreport>
+				<reportElement uuid="d30a715d-19fb-4ced-8f6c-615e16ab682d" x="75" y="15" width="400" height="15"/>
+				<subreportParameter name="idEmpresa">
+					<subreportParameterExpression><![CDATA[$F{idEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoComputador">
+					<subreportParameterExpression><![CDATA[$F{codigoComputador}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idFechamento">
+					<subreportParameterExpression><![CDATA[$F{idFechamento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelatorioDeFechamentoDeCaixaSubSubReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="2aa31408-7dc3-41dd-98af-d3dcc3ffd253" x="345" y="0" width="60" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Sub-Total:]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="54447dd7-d3f1-4691-bd3b-a1133a6bf382" x="0" y="0" width="555" height="1" forecolor="#CCCCCC"/>
+			</line>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="96282936-4a5a-455c-b095-e4184137009c" x="405" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{SomaValorTotalDoFechamento} - $P{valorDoCaixa}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

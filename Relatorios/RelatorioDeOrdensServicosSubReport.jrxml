@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDeOrdensServicosSubReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="1bf53563-e2c0-473f-89e5-bcd86199cd28">
+	<property name="ireport.zoom" value="3.305785123966942"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<parameter name="idOrdemServico" class="java.lang.String"/>
+	<parameter name="preenchimento" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    osi.codigoOrdemServicoItem,
+    osi.codigoServico,
+    ser.descricaoServico,
+    osi.codigoProduto,
+    pro.descricaoProduto,
+    osi.valorUnitario,
+    osi.quantidade,
+    osi.valorTotal
+from
+    tb_os os
+    inner join tb_os_itens osi on ((os.idEmpresa = osi.idEmpresa) and (os.codigoOrdemServico = osi.codigoOrdemServico))
+    left  join tb_servicos ser on ((os.idEmpresa = ser.idEmpresa) and (osi.codigoServico = ser.codigoServico))
+    left  join tb_produtos pro on ((os.idEmpresa = pro.idEmpresa) and (osi.codigoProduto = pro.codigoProduto))
+        where os.idEmpresa = $P{idEmpresa} and os.idOrdemServico = $P{idOrdemServico}
+            order by codigoOrdemServicoItem asc;]]>
+	</queryString>
+	<field name="codigoOrdemServicoItem" class="java.lang.Integer"/>
+	<field name="codigoServico" class="java.lang.Integer"/>
+	<field name="descricaoServico" class="java.lang.String"/>
+	<field name="codigoProduto" class="java.lang.Integer"/>
+	<field name="descricaoProduto" class="java.lang.String"/>
+	<field name="valorUnitario" class="java.lang.Double"/>
+	<field name="quantidade" class="java.lang.Double"/>
+	<field name="valorTotal" class="java.lang.Double"/>
+	<variable name="valorTotalPagamentoPorOs" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotal}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15">
+			<textField>
+				<reportElement uuid="d313d9f4-1e3c-4d0f-96bc-098ff607f45f" x="40" y="0" width="50" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricaoServico} == null? "Produto" : "Serviço"]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="8a819bbb-dca8-46ef-884d-5a7490566440" x="470" y="0" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorTotal}]]></textFieldExpression>
+			</textField>
+			<textField pattern="000000">
+				<reportElement uuid="6c51def5-e82a-42f2-89ec-82c99bd5c24a" x="90" y="0" width="40" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoServico} == null? $F{codigoProduto} : $F{codigoServico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="36cc0cc4-3346-4cd0-9946-1d2a073e8331" x="360" y="0" width="70" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorUnitario}]]></textFieldExpression>
+			</textField>
+			<textField pattern="00">
+				<reportElement uuid="c320fc64-6823-4f16-8ef4-b7f9d0e55ea2" x="15" y="0" width="25" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoOrdemServicoItem}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="31b304cb-ff1d-433a-a22d-7be6ddde2b70" x="130" y="0" width="230" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricaoServico} == null? " - " + $F{descricaoProduto} : " - " + $F{descricaoServico}]]></textFieldExpression>
+			</textField>
+			<textField pattern="00">
+				<reportElement uuid="2e5e6f4e-bc69-4f1d-af3a-e7b19e209f2a" x="430" y="0" width="40" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{quantidade}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="f6947e87-e25f-4e63-ae05-0c72d79ca8b1" x="470" y="0" width="85" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$V{valorTotalPagamentoPorOs}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="13c5e5d7-f6f9-495d-b17b-a17d5c66ff8f" x="430" y="0" width="40" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

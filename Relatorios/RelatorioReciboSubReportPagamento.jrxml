@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioReciboSubReportPagamento" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="622e6e47-23f9-4401-ade7-11fc585eb1b9">
+	<property name="ireport.zoom" value="1.771561000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idRecibo" class="java.lang.String"/>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    forp.descricaoPagamento,
+    recp.valorDoPagamento
+from
+    tb_recibos rec
+    left join tb_recibos_pagamentos recp on (rec.idRecibo = recp.idRecibo)
+    left join tb_formaspagamentos forp on ((rec.idEmpresa = forp.idEmpresa) and (recp.codigoPagamento = forp.codigoPagamento))
+	where rec.idEmpresa = $P{idEmpresa} and rec.idRecibo = $P{idRecibo}
+	    order by rec.codigoRecibo asc;]]>
+	</queryString>
+	<field name="descricaoPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorDoPagamento" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="c4a9c5da-ee43-415a-ac33-35ffc4d79e2d" x="0" y="0" width="65" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Tipo de Pgto:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="7d1554ed-c4e4-4e59-9194-f530d618908d" x="65" y="0" width="116" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{descricaoPagamento} == null? "" : $F{descricaoPagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="31acafec-4e28-4146-b46f-54ee9f057aa0" x="231" y="0" width="53" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[Valor Pago:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="eac968fe-a4c0-43b2-b2b0-258d7f0304f2" x="284" y="0" width="109" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorDoPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

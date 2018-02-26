@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioOrdemServicoUnitario2" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="3f11063d-6863-4a8e-a1d3-bfb0b09b3374">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nomeEmpresa" class="java.lang.String"/>
+	<parameter name="cnpjEmpresa" class="java.lang.String"/>
+	<parameter name="cidadeEmpresa" class="java.lang.String"/>
+	<parameter name="enderecoEmpresa" class="java.lang.String"/>
+	<parameter name="cepEmpresa" class="java.lang.String"/>
+	<parameter name="telefoneEmpresa" class="java.lang.String"/>
+	<parameter name="logotipoEmpresa" class="java.awt.Image"/>
+	<parameter name="codigoOrdemServico" class="java.lang.Integer"/>
+	<parameter name="impressaoDoLaudo" class="java.lang.Integer"/>
+	<parameter name="termoDeRecebimento" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["X:\\NSys\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<summary>
+		<band height="555">
+			<subreport>
+				<reportElement uuid="408383e2-e631-4be1-a0e0-17d6d72beb0f" positionType="Float" x="0" y="0" width="395" height="555"/>
+				<subreportParameter name="enderecoEmpresa">
+					<subreportParameterExpression><![CDATA[$P{enderecoEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cepEmpresa">
+					<subreportParameterExpression><![CDATA[$P{cepEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="impressaoDoLaudo">
+					<subreportParameterExpression><![CDATA[$P{impressaoDoLaudo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoOrdemServico">
+					<subreportParameterExpression><![CDATA[$P{codigoOrdemServico}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idEmpresa">
+					<subreportParameterExpression><![CDATA[$P{idEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="termoDeRecebimento">
+					<subreportParameterExpression><![CDATA[$P{termoDeRecebimento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="telefoneEmpresa">
+					<subreportParameterExpression><![CDATA[$P{telefoneEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nomeEmpresa">
+					<subreportParameterExpression><![CDATA[$P{nomeEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logotipoEmpresa">
+					<subreportParameterExpression><![CDATA[$P{logotipoEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cidadeEmpresa">
+					<subreportParameterExpression><![CDATA[$P{cidadeEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cnpjEmpresa">
+					<subreportParameterExpression><![CDATA[$P{cnpjEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RelatorioOrdemServicoUnitario.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement uuid="ae381b25-29a4-4f90-80ee-22dc4c36fff8" x="401" y="0" width="1" height="555"/>
+				<graphicElement>
+					<pen lineStyle="Dashed"/>
+				</graphicElement>
+			</line>
+			<subreport>
+				<reportElement uuid="bf39cf8e-b7e5-47fe-8ea7-4685e9be6171" stretchType="RelativeToTallestObject" x="408" y="0" width="396" height="555"/>
+				<subreportParameter name="enderecoEmpresa">
+					<subreportParameterExpression><![CDATA[$P{enderecoEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cepEmpresa">
+					<subreportParameterExpression><![CDATA[$P{cepEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="impressaoDoLaudo">
+					<subreportParameterExpression><![CDATA[$P{impressaoDoLaudo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoOrdemServico">
+					<subreportParameterExpression><![CDATA[$P{codigoOrdemServico}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idEmpresa">
+					<subreportParameterExpression><![CDATA[$P{idEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="telefoneEmpresa">
+					<subreportParameterExpression><![CDATA[$P{telefoneEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="nomeEmpresa">
+					<subreportParameterExpression><![CDATA[$P{nomeEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="termoDeRecebimento">
+					<subreportParameterExpression><![CDATA[$P{termoDeRecebimento}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="logotipoEmpresa">
+					<subreportParameterExpression><![CDATA[$P{logotipoEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cidadeEmpresa">
+					<subreportParameterExpression><![CDATA[$P{cidadeEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="cnpjEmpresa">
+					<subreportParameterExpression><![CDATA[$P{cnpjEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RelatorioOrdemServicoUnitario.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

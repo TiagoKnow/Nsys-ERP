@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="226" pageHeight="842" columnWidth="186" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" isIgnorePagination="true" uuid="6c3d81f4-b064-4cd7-9ca9-fa9a5227dbd4">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigoOrdemServico" class="java.lang.String"/>
+	<parameter name="nomeEmpresa" class="java.lang.String"/>
+	<parameter name="enderecoEmpresa" class="java.lang.String"/>
+	<parameter name="cnpjEmpresa" class="java.lang.String"/>
+	<parameter name="bairroEmpresa" class="java.lang.String"/>
+	<parameter name="cepEmpresa" class="java.lang.String"/>
+	<parameter name="cidadeEmpresa" class="java.lang.String"/>
+	<parameter name="usuarioSistema" class="java.lang.String"/>
+	<parameter name="terminal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from tb_etiquetas;]]>
+	</queryString>
+	<field name="idEtiquetas" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoGrupo" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoEmpresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="titulo" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoBarras" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valor" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="quantidade" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoImpressao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoEtiqueta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoConexao" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="36" splitType="Stretch">
+			<line>
+				<reportElement uuid="6477d15f-96ef-4555-9f0a-c4807451f665" x="-10" y="33" width="206" height="1"/>
+			</line>
+			<textField>
+				<reportElement uuid="f671ffba-330f-4e36-9fb8-93d93674776c" x="0" y="0" width="186" height="33"/>
+				<textElement>
+					<font fontName="Verdana"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{titulo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="106" splitType="Stretch">
+			<componentElement>
+				<reportElement uuid="047366ff-a2a5-4a75-9251-49eb11ebe37c" x="48" y="0" width="138" height="32"/>
+				<jr:Codabar xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{codigoBarras}]]></jr:codeExpression>
+				</jr:Codabar>
+			</componentElement>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="174f2948-cfb1-4563-a596-e5e053ae6f29" x="-10" y="32" width="206" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[$F{valor}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="101" splitType="Stretch">
+			<line>
+				<reportElement uuid="67f6a4cd-7447-4e90-882e-01db8c529a2b" x="-13" y="0" width="209" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="0ada97a4-a8ac-4213-9e0b-4663ae00c131" x="-13" y="15" width="209" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="f0b1b3b6-340b-4437-9fb2-ead54b1e5918" x="-13" y="46" width="209" height="1"/>
+			</line>
+			<line>
+				<reportElement uuid="9b269d5e-e73a-4e12-9589-8871383d494d" x="-10" y="77" width="209" height="1"/>
+			</line>
+		</band>
+	</summary>
+</jasperReport>

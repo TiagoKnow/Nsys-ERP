@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="300" pageHeight="842" columnWidth="260" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="99ef44c2-e899-4934-a2ca-d4125fbf41f0">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="dataInicial" class="java.lang.String"/>
+	<parameter name="dataFinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    tipo.codigoPagamento,
+    tipo.descricaoPagamento,
+    count(tipo.codigoPagamento),
+    sum(pag.valorDoPagamento)
+from tb_vendas_pagamentos pag
+	inner join tb_vendas ven on (ven.codigoVenda = pag.codigoVenda)
+	inner join tb_formaspagamentos tipo on (tipo.codigoPagamento = pag.codigoPagamento)
+		where (ven.status <> 0 and ven.status <> 1) and (ven.dataVenda between $P{dataInicial} and $P{dataFinal})
+			group by tipo.codigoPagamento;]]>
+	</queryString>
+	<field name="codigoPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="count(tipo.codigoPagamento)" class="java.lang.Long"/>
+	<field name="sum(pag.valorDoPagamento)" class="java.lang.Double"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch"/>
+	</title>
+	<pageHeader>
+		<band height="36" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="e6494e65-d130-4247-ada6-9f7fd8e39bba" x="0" y="0" width="260" height="16"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totais por forma de Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="f9514d52-06ce-455e-bd58-4dead43cf66b" x="0" y="16" width="158" height="20"/>
+				<textElement/>
+				<text><![CDATA[Tipo de Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="47d282f0-4279-41a4-9e76-2df18a1375f3" x="158" y="16" width="102" height="20"/>
+				<textElement/>
+				<text><![CDATA[Valor total Pago]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="19" splitType="Stretch">
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="9bcd908e-05b6-4768-be0e-e7f99cbe555a" x="158" y="0" width="100" height="19"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sum(pag.valorDoPagamento)}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="52547617-33fa-437f-a7d9-14d324471fb1" x="0" y="0" width="158" height="19"/>
+				<textElement>
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoPagamento} + " - " + $F{descricaoPagamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="13" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch"/>
+	</summary>
+</jasperReport>
