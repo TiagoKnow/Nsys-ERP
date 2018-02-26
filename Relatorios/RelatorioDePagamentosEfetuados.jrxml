@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDePagamentosEfetuados" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1bbf2142-f7fb-4bd4-aa03-030e0e17fbdd">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="136"/>
+	<parameter name="dataInicial" class="java.lang.String"/>
+	<parameter name="dataFinal" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    pag.idPagamento,
+    pag.valorDoPagamento,
+    tipo.codigoPagamento,
+    tipo.descricaoPagamento,
+    ven.dataVenda
+from tb_vendas_pagamentos pag
+	inner join tb_vendas ven on (ven.codigoVenda = pag.codigoVenda)
+	inner join tb_formaspagamentos tipo on (tipo.codigoPagamento = pag.codigoPagamento)
+		where (ven.status <> 0 and ven.status <> 1) and (ven.dataVenda between $P{dataInicial} and $P{dataFinal}) order by tipo.codigoPagamento asc;]]>
+	</queryString>
+	<field name="idPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorDoPagamento" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataVenda" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="totalLancamentos" class="java.lang.Integer" calculation="Count">
+		<variableExpression><![CDATA[$F{idPagamento}]]></variableExpression>
+	</variable>
+	<variable name="valorTotalLancamentos" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorDoPagamento}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="de3ed1a8-226a-4b43-9c48-11350c30c8e3" x="1" y="0" width="555" height="43"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="24" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Relatório de Pagamentos Efetuados]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="20" splitType="Stretch">
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement uuid="a4eeae91-c207-40f6-8007-7d5f30f16ce4" x="275" y="0" width="278" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Data da impressão: " + new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<line>
+				<reportElement uuid="9a18fd52-0580-4c15-9f70-cb2d93536def" x="0" y="20" width="553" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="a8d54819-06a5-4318-ad0e-e77d8687e582" x="0" y="0" width="111" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código Lançamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="3d083ec5-4ce4-467e-acc0-08b26446b386" x="111" y="0" width="111" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="b1ddcefa-31ee-4f34-97e6-87e07903347d" x="222" y="0" width="222" height="20"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Tipo de Pagamento]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="c8c9d1e2-339f-4cf3-9464-6f10f76ca9c6" x="444" y="0" width="111" height="20"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement uuid="7d19bf79-8633-4d05-8225-e3e8b08446e6" x="0" y="0" width="111" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{idPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="afe75c40-f469-4aab-bd66-dc96ea959a6b" x="111" y="0" width="111" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{valorDoPagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="61f17943-7d59-4c7b-b653-7065a803c3f9" x="222" y="0" width="222" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoPagamento} + " - " + $F{descricaoPagamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="fbb9b284-b855-45d2-a9e3-16cc62f11f51" x="444" y="0" width="111" height="14"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataVenda}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="45822bcb-32eb-4f9c-b64d-8a12546e4f4c" x="45" y="1" width="66" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{totalLancamentos}]]></textFieldExpression>
+			</textField>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="c3d89057-2e41-4f55-9024-ca6fb41f4387" x="111" y="1" width="111" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valorTotalLancamentos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="70496072-f5b7-4cfc-9b06-44c16d63e1a3" x="1" y="1" width="44" height="14"/>
+				<textElement verticalAlignment="Middle">
+					<font size="8" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Totais: ]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="072cab74-ab70-47f7-a5b9-62d0054e382a" x="1" y="0" width="552" height="1"/>
+			</line>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement uuid="302ab36a-cff3-4fd9-bf96-c9b12fc0767b" x="435" y="0" width="80" height="20"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA["Página "+$V{PAGE_NUMBER}+" de"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement uuid="d982195c-34f6-4b64-b937-0c8b35cb72e1" x="515" y="0" width="40" height="20"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="57" splitType="Stretch">
+			<line>
+				<reportElement uuid="a2e0df44-578f-4e09-b15b-cd9c4aa8a1b9" x="0" y="-2" width="553" height="1"/>
+			</line>
+			<subreport>
+				<reportElement uuid="59a24fae-a84f-4429-86eb-46f43d3ef483" x="1" y="0" width="242" height="57"/>
+				<subreportParameter name="dataInicial">
+					<subreportParameterExpression><![CDATA[$P{dataInicial}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="dataFinal">
+					<subreportParameterExpression><![CDATA[$P{dataFinal}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "RelatorioDePagamentosEfetuadosResumo.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</summary>
+</jasperReport>

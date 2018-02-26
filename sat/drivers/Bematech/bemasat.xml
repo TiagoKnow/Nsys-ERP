@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<bematech>
+    <Sistema>
+    	<LocalizarPorta>1</LocalizarPorta>
+        <Porta>COM4</Porta>
+        <Path>C:\Nex</Path>
+		<NivelLog>1</NivelLog>
+		<ValidarParametros>1</ValidarParametros>
+    </Sistema>
+    <Timeouts>
+        <ativacao>300000</ativacao>
+        <icp_brasil>300000</icp_brasil>
+        <consultar_sat>2000</consultar_sat>
+        <associar_assinatura>20000</associar_assinatura>
+        <consultar_sessao>20000</consultar_sessao>
+        <trocar_codigo_ativacao>20000</trocar_codigo_ativacao>
+        <bloquear_sat>300000</bloquear_sat>
+        <desbloquear_sat>20000</desbloquear_sat>
+        <extrair_logs>20000</extrair_logs>
+        <atualizar_sat>1800000</atualizar_sat>
+        <configurar_rede>20000</configurar_rede>
+        <enviar_venda>10000</enviar_venda>
+        <cancelar_venda>1000</cancelar_venda>
+        <teste_fim_a_fim>20000</teste_fim_a_fim>
+        <consultar_status>2000</consultar_status>
+    </Timeouts>
+</bematech>
+

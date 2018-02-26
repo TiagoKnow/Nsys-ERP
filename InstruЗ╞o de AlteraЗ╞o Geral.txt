@@ -1,0 +1,293 @@
+ALTER TABLE `ns3info`.`tb_boletos` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+ALTER TABLE `ns3info`.`tb_clientes` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_computadores` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+ALTER TABLE `ns3info`.`tb_contratos` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_despesas` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_fornecedor` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+ALTER TABLE `ns3info`.`tb_orcamentos` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_os_canceladas` 
+ADD COLUMN `idEmpresaCancelou` INT(2) NULL AFTER `usuarioCancelou`,
+ADD COLUMN `codigoGrupoCancelou` INT(2) NULL AFTER `idEmpresaCancelou`,
+ADD COLUMN `codigoEmpresaCancelou` INT(3) NULL AFTER `codigoGrupoCancelou`;
+
+ALTER TABLE `ns3info`.`tb_os_finalizadas` 
+ADD COLUMN `idEmpresaFinalizou` INT(2) NULL AFTER `usuarioFinalizou`,
+ADD COLUMN `codigoGrupoFinalizou` INT(2) NULL AFTER `idEmpresaFinalizou`,
+ADD COLUMN `codigoEmpresaFinalizou` INT(3) NULL AFTER `codigoGrupoFinalizou`;
+
+ALTER TABLE `ns3info`.`tb_os_itens` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_os_semsolucao` 
+ADD COLUMN `idEmpresaSemSolucao` INT(2) NULL AFTER `usuarioSemSolucao`,
+ADD COLUMN `codigoGrupoSemSolucao` INT(2) NULL AFTER `idEmpresaSemSolucao`,
+ADD COLUMN `codigoEmpresaSemSolucao` INT(3) NULL AFTER `codigoGrupoSemSolucao`;
+ALTER TABLE `ns3info`.`tb_os` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_produtos` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_usuarios` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+
+ALTER TABLE `ns3info`.`tb_vendas` 
+ADD COLUMN `idEmpresaAlterou` INT(2) NULL AFTER `usuarioAlterou`,
+ADD COLUMN `codigoGrupoAlterou` INT(2) NULL AFTER `idEmpresaAlterou`,
+ADD COLUMN `codigoEmpresaAlterou` INT(3) NULL AFTER `codigoGrupoAlterou`;
+ALTER TABLE `bd_nsys`.`tb_os` 
+ADD COLUMN `codigoCancelamento` INT(2) NULL AFTER `horaCadastro`,
+ADD COLUMN `detalhesCancelamento` VARCHAR(300) NULL AFTER `codigoCancelamento`,
+ADD COLUMN `dataCancelou` DATE NULL AFTER `detalhesCancelamento`,
+ADD COLUMN `horaCancelou` TIME NULL AFTER `dataCancelou`,
+ADD COLUMN `usuarioCancelou` INT(3) NULL AFTER `horaCancelou`,
+ADD COLUMN `idEmpresaCancelou` INT(2) NULL AFTER `usuarioCancelou`,
+ADD COLUMN `computadorCancelou` INT(2) NULL AFTER `idEmpresaCancelou`;
+
+ALTER TABLE `bd_nsys`.`tb_os` 
+ADD COLUMN `dataFinalizou` DATE NULL AFTER `computadorCancelou`,
+ADD COLUMN `horaFinalizou` TIME NULL AFTER `dataFinalizou`,
+ADD COLUMN `usuarioFinalizou` INT(3) NULL AFTER `horaFinalizou`,
+ADD COLUMN `idEmpresaFinalizou` INT(2) NULL AFTER `usuarioFinalizou`,
+ADD COLUMN `computadorFinalizou` INT(2) NULL AFTER `idEmpresaFinalizou`;
+
+ALTER TABLE `bd_nsys`.`tb_os` 
+ADD COLUMN `codigoCancelamentoSemSolucao` INT(2) NULL AFTER `computadorFinalizou`,
+ADD COLUMN `detalhesCancelamentoSemSolucao` VARCHAR(300) NULL AFTER `codigoCancelamentoSemSolucao`,
+ADD COLUMN `dataSemSolucao` DATE NULL AFTER `detalhesCancelamentoSemSolucao`,
+ADD COLUMN `horaSemSolucao` TIME NULL AFTER `dataSemSolucao`,
+ADD COLUMN `usuarioSemSolucao` INT(3) NULL AFTER `horaSemSolucao`,
+ADD COLUMN `idEmpresaSemSolucao` INT(2) NULL AFTER `usuarioSemSolucao`,
+ADD COLUMN `computadorSemSolucao` INT(2) NULL AFTER `idEmpresaSemSolucao`;
+ALTER TABLE `bd_nsys`.`tb_produtos` 
+ADD COLUMN `imagemProduto` LONGBLOB NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `bd_nsys`.`tb_vendas_itens` 
+ADD COLUMN `valorSubtotal` DOUBLE(15,2) NULL AFTER `quantidade`,
+
+ADD COLUMN `tipoDesconto` INT(1) NULL AFTER `valorSubtotal`,ADD COLUMN `valorDesconto` DOUBLE(15,2) NULL AFTER `tipoDesconto`;
+
+ALTER TABLE `ns3info`.`tb_boletos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_boletos_instrucoes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `terceiraInstrucao`;
+
+ALTER TABLE `ns3info`.`tb_boletos_retorno` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `Observacoes`;
+
+ALTER TABLE `ns3info`.`tb_caixa_abertura` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `status`;
+
+ALTER TABLE `ns3info`.`tb_caixa_fechamento` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `tipoFechamento`;
+
+ALTER TABLE `ns3info`.`tb_caixa_fechamento_detalhes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `valorTotalDoFechamento`;
+
+ALTER TABLE `ns3info`.`tb_caixa_motivo_saida` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoMotivoSaida`;
+
+ALTER TABLE `ns3info`.`tb_caixa_saida` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `statusSaida`;
+
+ALTER TABLE `ns3info`.`tb_cancelamento` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoCancelamento`;
+
+ALTER TABLE `ns3info`.`tb_clientes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_clientes_historico` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `horaCadastro`;
+
+ALTER TABLE `ns3info`.`tb_clientes_historico_listas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `dataCadastro`;
+
+ALTER TABLE `ns3info`.`tb_codigomanutencoes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `valorManutencao`;
+
+ALTER TABLE `ns3info`.`tb_comandas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `statusComanda`;
+
+ALTER TABLE `ns3info`.`tb_comandas_itens` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `valorTotal`;
+
+ALTER TABLE `ns3info`.`tb_computadores` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+ALTER TABLE `ns3info`.`tb_contacorrente` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricao`;
+
+ALTER TABLE `ns3info`.`tb_contratos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_departamento` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoDepartamento`;
+
+ALTER TABLE `ns3info`.`tb_despesas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `transferencia`;
+
+ALTER TABLE `ns3info`.`tb_despesas_tipo` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoDespesaTipo`;
+
+ALTER TABLE `ns3info`.`tb_etiquetas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `tipoConexao`;
+
+ALTER TABLE `ns3info`.`tb_fabricante` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `siteFabricante`;
+
+ALTER TABLE `ns3info`.`tb_formaspagamentos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoContaCorrente`;
+
+ALTER TABLE `ns3info`.`tb_fornecedor` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_funcionarios` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `imagemFuncionario`;
+
+ALTER TABLE `ns3info`.`tb_grupoproduto` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoGrupo`;
+
+ALTER TABLE `ns3info`.`tb_logacesso` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `sistema`;
+
+ALTER TABLE `ns3info`.`tb_manutencoes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `ano`;
+
+ALTER TABLE `ns3info`.`tb_modulos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `abasRH`;
+
+ALTER TABLE `ns3info`.`tb_oc` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_oc_itens` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_orcamentos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_os` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `computadorSemSolucao`;
+
+ALTER TABLE `ns3info`.`tb_os_itens` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoProduto`;
+
+ALTER TABLE `ns3info`.`tb_os_pagamentos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `dataPagamento`;
+
+ALTER TABLE `ns3info`.`tb_parametros` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `pastaRelatorios`;
+
+ALTER TABLE `ns3info`.`tb_parametroscc` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `imagemBoletos`;
+
+
+ALTER TABLE `ns3info`.`tb_parametroscontabil` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `dataContabil`;
+
+ALTER TABLE `ns3info`.`tb_parametrosestoque` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `extensaoImagemProdutos`;
+
+ALTER TABLE `ns3info`.`tb_parametrosgestao` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `idVenda`;
+
+ALTER TABLE `ns3info`.`tb_parametrosproducao` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `termoDeRecebimento`;
+
+ALTER TABLE `ns3info`.`tb_parametrosvendas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `infQtdMenor`;
+
+ALTER TABLE `ns3info`.`tb_planodecontas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `idPlanoReferencial`;
+
+ALTER TABLE `ns3info`.`tb_planodecontasmovimentos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `saldo`;
+
+ALTER TABLE `ns3info`.`tb_planodecontasrelacionamento` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `idPlanoDeContasRecibos`;
+
+ALTER TABLE `ns3info`.`tb_produtos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `imagemProduto`;
+
+ALTER TABLE `ns3info`.`tb_produtos_detalhes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `horaRegistro`;
+
+ALTER TABLE `ns3info`.`tb_receitas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `idEmpresa`;
+
+ALTER TABLE `ns3info`.`tb_recibos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `dataEmissaoLote`;
+
+ALTER TABLE `ns3info`.`tb_recibos_detalhes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `valorTotal`;
+
+ALTER TABLE `ns3info`.`tb_recibos_pagamentos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `trocoDoPagamento`;
+
+ALTER TABLE `ns3info`.`tb_servicos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `valorServico`;
+
+ALTER TABLE `ns3info`.`tb_situacoes` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoSituacao`;
+
+ALTER TABLE `ns3info`.`tb_subgrupoproduto` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `descricaoSubGrupo`;
+
+ALTER TABLE `ns3info`.`tb_transportadoras` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoPais`;
+
+ALTER TABLE `ns3info`.`tb_usuarios` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `imagemUsuario`;
+
+ALTER TABLE `ns3info`.`tb_usuarios_email` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `autenticacaoSSL`;
+
+ALTER TABLE `ns3info`.`tb_veiculos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `rntcVeiculo`;
+
+ALTER TABLE `ns3info`.`tb_vendas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `codigoEmpresaAlterou`;
+
+ALTER TABLE `ns3info`.`tb_vendas_canceladas` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `detalhesCancelamento`;
+
+ALTER TABLE `ns3info`.`tb_vendas_itens` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `valorTotal`;
+
+ALTER TABLE `ns3info`.`tb_vendas_pagamentos` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `trocoDoPagamento`;
+
+ALTER TABLE `ns3info`.`tb_versao` 
+ADD COLUMN `atualizado` INT(1) NULL AFTER `integrantes`;

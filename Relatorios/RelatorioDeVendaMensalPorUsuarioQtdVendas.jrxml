@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDeVendaMensalPorUsuarioQtdVendas" language="groovy" pageWidth="80" pageHeight="55" columnWidth="80" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="ba3cd268-df4b-4c2d-bed7-066987ea72a2">
+	<property name="ireport.zoom" value="3.1384283767210035"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<parameter name="codigoUsuario" class="java.lang.String"/>
+	<parameter name="dataVendaInicial" class="java.lang.String"/>
+	<parameter name="dataVendaFinal" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    count(ven.idVenda) as qtdVendas
+from
+    tb_vendas ven
+    inner join tb_usuarios usu on ((ven.idEmpresa = usu.idEmpresa) and (ven.codigoUsuario = usu.codigoUsuario))
+    where ven.idEmpresa = $P{idEmpresa} and ven.status = 2 and ven.codigoUsuario = $P{codigoUsuario} and
+        (ven.dataVenda between $P{dataVendaInicial} and $P{dataVendaFinal});]]>
+	</queryString>
+	<field name="qtdVendas" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band height="15" splitType="Stretch">
+			<textField>
+				<reportElement uuid="4ae0b167-17e4-4f84-92f8-894dd728c43a" x="0" y="0" width="80" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{qtdVendas}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+</jasperReport>

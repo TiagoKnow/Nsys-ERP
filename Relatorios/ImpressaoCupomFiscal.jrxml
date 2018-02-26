@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ImpressaoCupomFiscal" language="groovy" pageWidth="265" pageHeight="842" columnWidth="225" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="59d7c263-c636-4400-9a06-0407e767df35">
+	<property name="ireport.zoom" value="2.1435888100000016"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="nomeEmpresa" class="java.lang.String"/>
+	<parameter name="enderecoEmpresa" class="java.lang.String"/>
+	<parameter name="cepEmpresa" class="java.lang.String"/>
+	<parameter name="cnpjEmpresa" class="java.lang.String"/>
+	<parameter name="inscricaoEstadualEmpresa" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="40" splitType="Stretch">
+			<textField>
+				<reportElement uuid="35879b1f-48f9-4df8-8e3b-991bb1ebff59" x="0" y="0" width="225" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="f2b23ace-4f3d-49eb-b947-767215fe376c" stretchType="RelativeToBandHeight" x="0" y="10" width="162" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Rua: $P{enderecoEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="075aecb6-2edc-459c-a33c-2a94dd946bcc" x="0" y="20" width="225" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[CNPJ: $P{cnpjEmpresa}.substring(0, 2) + "." + $P{cnpjEmpresa}.substring(2, 5) + "." + $P{cnpjEmpresa}.substring(5, 8) + "/" + $P{cnpjEmpresa}.substring(8, 12) + "-" + $P{cnpjEmpresa}.substring(12, 14)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="b964aa13-2baf-41f9-b360-f3b5d28ab3dc" x="0" y="30" width="225" height="10"/>
+				<textElement>
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[IE: $P{inscricaoEstadualEmpresa} == null? $P{inscricaoEstadualEmpresa}.replace( " ", "" ) : $P{inscricaoEstadualEmpresa}.substring(0, 3) + "." + $P{inscricaoEstadualEmpresa}.substring(3, 6) + "." + $P{inscricaoEstadualEmpresa}.substring(6, 9) + "." + $P{inscricaoEstadualEmpresa}.substring(9, 12)]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="53cce3c8-64dc-4bfc-9627-35e814a2050f" x="162" y="10" width="63" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="6"/>
+				</textElement>
+				<textFieldExpression><![CDATA[CEP: $P{cepEmpresa}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="334d18d8-ea17-4188-a44c-4d124c39587c" x="0" y="39" width="225" height="1"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="82df76b8-d205-4610-8403-4f8359555d1e" x="0" y="0" width="225" height="35"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CUPOM FISCAL]]></text>
+			</staticText>
+			<line>
+				<reportElement uuid="d6e2d4f5-d042-41b7-99e4-3e72dc8dc0e8" x="0" y="34" width="225" height="1"/>
+			</line>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="7be3b163-7a9b-476f-9fe2-c3208c3831ea" x="0" y="5" width="20" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[ITEM]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="64b9d489-eafd-44ac-b0fd-54fbf6c4cc01" x="20" y="5" width="55" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[COD. BARRAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="adbd3a61-b423-4fff-a1e6-859d407fdb2f" stretchType="RelativeToBandHeight" x="75" y="5" width="150" height="10"/>
+				<textElement verticalAlignment="Middle">
+					<font size="7" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DESCRIÇÃO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="9fb47864-fd89-4676-92be-7258c6be02c6" x="75" y="15" width="40" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[VL Unit(R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="2a7ba036-053d-4854-b0dc-c7d037a26dcc" x="20" y="15" width="20" height="10"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[QTD]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="4c2b5286-aa1d-4c0f-965f-4d0731eaccf4" x="180" y="15" width="45" height="10"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[VL ITEM(R$)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement uuid="e8e24a7b-3eb9-410a-ae73-026a3d3fbe39" x="40" y="15" width="15" height="10"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[UN]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch"/>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

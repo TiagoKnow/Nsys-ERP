@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDeFechamentoDeCaixaSubSubReport" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="2aada326-94d4-4957-9501-86ea26971327">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<parameter name="codigoComputador" class="java.lang.String"/>
+	<parameter name="idFechamento" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+    fecd.idFechamentoDetalhes,
+    fecd.idFechamento,
+    comp.codigoComputador,
+    comp.nomeComputador,
+    forp.codigoPagamento,
+    forp.descricaoPagamento,
+    fecd.dataPagamento,
+    fecd.valorTotalDoFechamento,
+    fec.tipoFechamento
+from
+    tb_caixa_fechamento fec
+    inner join tb_caixa_fechamento_detalhes fecd on (fec.idFechamento = fecd.idFechamento)
+    inner join tb_computadores comp on ((fec.idEmpresa = comp.idEmpresa) and (fecd.codigoComputador = comp.codigoComputador))
+    inner join tb_formaspagamentos forp on ((fec.idEmpresa = forp.idEmpresa) and (fecd.codigoPagamento = forp.codigoPagamento))
+    where fec.idEmpresa = $P{idEmpresa} and fec.codigoComputador = $P{codigoComputador} and fec.idFechamento = $P{idFechamento}
+       order by fecd.idFechamentoDetalhes asc;]]>
+	</queryString>
+	<field name="idFechamentoDetalhes" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idFechamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoComputador" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeComputador" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoPagamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoPagamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataPagamento" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorTotalDoFechamento" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tipoFechamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="valorTotalParcial" class="java.lang.Double" calculation="Sum">
+		<variableExpression><![CDATA[$F{valorTotalDoFechamento}]]></variableExpression>
+	</variable>
+	<detail>
+		<band height="15" splitType="Stretch">
+			<staticText>
+				<reportElement uuid="9acd4b79-04db-4294-98fa-f03284cf077b" x="0" y="0" width="110" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Forma de Pagamento:]]></text>
+			</staticText>
+			<textField pattern="00">
+				<reportElement uuid="650a41fd-31e1-4041-82d8-15916aa8ff8d" x="110" y="0" width="12" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{codigoPagamento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c3c401d0-c84e-42ce-a2a0-306eba0f7961" x="122" y="0" width="110" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-" + $F{descricaoPagamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="d3302e74-735b-4c80-adf9-9e9e9397dad1" x="300" y="0" width="30" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Valor:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="3ba57cb3-8f0a-4fc2-a8b4-e0276d49ca18" x="330" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorTotalDoFechamento}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="15">
+			<staticText>
+				<reportElement uuid="534efba5-625f-4d2f-b38f-6e206c3f70f2" x="265" y="0" width="65" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total parcial:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="90ab03c9-5420-4aff-8ae8-1b2bbffdba16" x="330" y="0" width="70" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{valorTotalParcial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

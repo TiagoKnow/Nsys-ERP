@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="RelatorioDeFechamentoDeCaixa" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="1ee3f441-f358-4ec5-a94f-e78975a18e9e">
+	<property name="ireport.zoom" value="1.610510000000001"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idEmpresa" class="java.lang.String"/>
+	<parameter name="nomeEmpresa" class="java.lang.String"/>
+	<parameter name="cnpjEmpresa" class="java.lang.String"/>
+	<parameter name="cidadeEmpresa" class="java.lang.String"/>
+	<parameter name="enderecoEmpresa" class="java.lang.String"/>
+	<parameter name="cepEmpresa" class="java.lang.String"/>
+	<parameter name="telefoneEmpresa" class="java.lang.String"/>
+	<parameter name="logotipoEmpresa" class="java.awt.Image"/>
+	<parameter name="codigoComputadorInicial" class="java.lang.String"/>
+	<parameter name="codigoComputadorFinal" class="java.lang.String"/>
+	<parameter name="dataAberturaInicial" class="java.lang.String"/>
+	<parameter name="dataAberturaFinal" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["X:\\NSys\\Relatorios\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+    caix.idAbertura,
+    caix.idEmpresa,
+    caix.codigoAbertura,
+    usu.codigoUsuario,
+    usu.usuario,
+    comp.codigoComputador,
+    comp.nomeComputador,
+    dep.codigoDepartamento,
+    dep.descricaoDepartamento,
+    caix.dataAbertura,
+    caix.horaAbertura,
+    caix.valorDoCaixa,
+    caix.status
+from
+    tb_caixa_abertura caix
+    inner join tb_computadores comp on ((caix.idEmpresa = comp.idEmpresa) and (caix.codigoComputador = comp.codigoComputador))
+    inner join tb_departamento dep  on ((caix.idEmpresa = dep.idEmpresa) and (comp.computadorDepartamento = dep.codigoDepartamento))
+    inner join tb_usuarios usu on ((caix.idEmpresa = usu.idEmpresa) and (caix.codigoUsuario = usu.codigoUsuario))
+        where caix.idEmpresa = $P{idEmpresa} and
+            caix.codigoComputador between $P{codigoComputadorInicial} and $P{codigoComputadorFinal} and
+            caix.dataAbertura between $P{dataAberturaInicial} and $P{dataAberturaFinal}
+            order by caix.idAbertura asc;]]>
+	</queryString>
+	<field name="idAbertura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="idEmpresa" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoAbertura" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoUsuario" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="usuario" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoComputador" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nomeComputador" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="codigoDepartamento" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descricaoDepartamento" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="dataAbertura" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="horaAbertura" class="java.sql.Time">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="valorDoCaixa" class="java.lang.Double">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="status" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="95" splitType="Stretch">
+			<image hAlign="Center" vAlign="Middle">
+				<reportElement uuid="de394bf6-fd89-4b98-8adf-c593d939f38c" x="1" y="1" width="79" height="79"/>
+				<imageExpression><![CDATA[$P{logotipoEmpresa}]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement uuid="1c660b77-a372-45e0-be69-1b62287f36db" x="92" y="50" width="90" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cepEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="cda63921-fe5e-48d2-a1a8-a19e351393eb" x="142" y="65" width="140" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{telefoneEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="c6d383a4-0c0c-4c88-a449-8a05dc0825d8" x="92" y="1" width="173" height="19"/>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{nomeEmpresa}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="0a0e46bc-63bf-42bf-8ab8-f50c0a29d5e9" x="92" y="65" width="50" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Telefone:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="db00d147-2afb-4e37-8e65-c95bf593f545" x="92" y="35" width="300" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{enderecoEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="615b12c6-be5e-43c5-8f16-7aa3fb8fe990" x="182" y="50" width="152" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cidadeEmpresa}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="0a16488e-55d6-4d21-b4a3-26a6d9d34a8f" x="92" y="20" width="173" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$P{cnpjEmpresa}.substring(1, 3) + "." + $P{cnpjEmpresa}.substring(3, 6) + "." + $P{cnpjEmpresa}.substring(6, 9) + "/" + $P{cnpjEmpresa}.substring(9, 13) + "-" + $P{cnpjEmpresa}.substring(13, 15)]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="90" splitType="Stretch">
+			<line>
+				<reportElement uuid="c6953d35-7877-4bc0-856f-89e850245482" x="0" y="0" width="555" height="1"/>
+			</line>
+			<staticText>
+				<reportElement uuid="df124e5a-bc15-4c0e-a689-ec80f8f7f9e5" x="0" y="10" width="35" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[Caixa:]]></text>
+			</staticText>
+			<textField pattern="00">
+				<reportElement uuid="f250e92f-2d2d-4a7e-8dc8-642336811dbc" x="35" y="10" width="12" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoComputador}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement uuid="07017bb2-b280-4a98-8219-355279438378" x="47" y="10" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-" + $F{nomeComputador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="b0a52ea7-c108-4717-b2dc-0985abd3b838" x="180" y="10" width="75" height="15"/>
+				<textElement textAlignment="Right">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Departamento:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="305ea76a-0381-455e-b838-7f93d31bbf13" x="267" y="10" width="100" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["-" + $F{descricaoDepartamento}]]></textFieldExpression>
+			</textField>
+			<textField pattern="00">
+				<reportElement uuid="080f495b-be56-481a-8378-420de2bfeaac" x="255" y="10" width="12" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoDepartamento}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="12e24ec7-385f-4f5f-ad89-9428e1eecb0f" x="0" y="30" width="85" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Data de Abertura:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement uuid="75e13089-2d4f-4741-8135-74983ec7159f" x="85" y="30" width="55" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dataAbertura}]]></textFieldExpression>
+			</textField>
+			<textField pattern="HH.mm.ss">
+				<reportElement uuid="9e95e17b-7c73-4b91-b440-710228956944" mode="Transparent" x="140" y="30" width="40" height="15"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horaAbertura}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="c4e91ccb-94ab-4937-b86f-f8d9a04d9a2e" x="215" y="30" width="40" height="15"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement uuid="93e490aa-24a1-428d-b090-71b21fd1a0bd" x="255" y="30" width="60" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{status}.equals("Z")? "Fechado" : "Aberto"]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement uuid="a78a3f96-cdf4-45ec-b069-82b9bbb4f3c3" x="375" y="30" width="90" height="15"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo de Abertura:]]></text>
+			</staticText>
+			<textField pattern="¤ #,##0.00">
+				<reportElement uuid="9bbfae84-7dbb-40d7-80d0-75539ddb2adc" x="465" y="30" width="90" height="15"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{valorDoCaixa}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement uuid="ca95e74f-1d78-431c-9764-82d6e28488dc" x="0" y="45" width="555" height="1" forecolor="#A5A5A5"/>
+			</line>
+			<subreport>
+				<reportElement uuid="947fd0b2-96b1-4be2-8a39-be4778a1088a" x="0" y="50" width="555" height="40"/>
+				<subreportParameter name="codigoComputador">
+					<subreportParameterExpression><![CDATA[$F{codigoComputador}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="idEmpresa">
+					<subreportParameterExpression><![CDATA[$F{idEmpresa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="valorDoCaixa">
+					<subreportParameterExpression><![CDATA[$F{valorDoCaixa}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="codigoAbertura">
+					<subreportParameterExpression><![CDATA[$F{codigoAbertura}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["RelatorioDeFechamentoDeCaixaSubReport.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>
