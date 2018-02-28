@@ -216,6 +216,7 @@ public class LoginPDV extends javax.swing.JFrame {
 
     private void bt_confirmaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_confirmaActionPerformed
         Login();
+        //Tiago passou por aqui também
     }//GEN-LAST:event_bt_confirmaActionPerformed
 
     private void bt_sairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_sairActionPerformed
