@@ -1390,6 +1390,7 @@ public class Login extends javax.swing.JFrame {
 
     private void bt_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bt_loginActionPerformed
         PegaUsuarioParaLogar();
+        //Tiago passou por aqui
     }//GEN-LAST:event_bt_loginActionPerformed
             
     private void formWindowGainedFocus(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowGainedFocus
